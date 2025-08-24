@@ -1,0 +1,97 @@
+{
+  "analysis": {
+    "char_filter": {
+      "html_strip_filter": {
+        "type": "html_strip"
+      },
+      "mapping_filter": {
+        "type": "mapping",
+        "mappings": [
+          "& => and",
+          "@ => at"
+        ]
+      }
+    },
+    "tokenizer": {
+      "edge_ngram_tokenizer": {
+        "type": "edge_ngram",
+        "min_gram": 2,
+        "max_gram": 10,
+        "token_chars": [
+          "letter",
+          "digit"
+        ]
+      },
+      "keyword_tokenizer": {
+        "type": "keyword"
+      }
+    },
+    "filter": {
+      "vietnamese_stop": {
+        "type": "stop",
+        "stopwords": ["và", "của", "với", "trong", "trên", "dưới", "là", "có", "được", "sẽ", "đã", "từ", "để", "cho", "về", "như", "theo", "những", "các", "một", "này", "đó", "khi", "nếu", "tại", "sau", "trước"]
+      },
+      "vietnamese_stemmer": {
+        "type": "stemmer",
+        "language": "light_french"
+      },
+      "edge_ngram_filter": {
+        "type": "edge_ngram",
+        "min_gram": 2,
+        "max_gram": 10
+      },
+      "lowercase_filter": {
+        "type": "lowercase"
+      },
+      "asciifolding_filter": {
+        "type": "asciifolding"
+      }
+    },
+    "analyzer": {
+      "vietnamese_analyzer": {
+        "type": "custom",
+        "char_filter": ["html_strip_filter"],
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase_filter",
+          "asciifolding_filter",
+          "vietnamese_stop",
+          "vietnamese_stemmer"
+        ]
+      },
+      "custom_analyzer": {
+        "type": "custom",
+        "char_filter": ["html_strip_filter", "mapping_filter"],
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase_filter",
+          "stop",
+          "asciifolding_filter"
+        ]
+      },
+      "autocomplete_index": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase_filter",
+          "edge_ngram_filter"
+        ]
+      },
+      "autocomplete_search": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase_filter"
+        ]
+      },
+      "email_analyzer": {
+        "type": "custom",
+        "tokenizer": "keyword_tokenizer",
+        "filter": [
+          "lowercase_filter"
+        ]
+      }
+    }
+  }
+}
+
