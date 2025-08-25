@@ -1,13 +1,10 @@
-package com.example.demo.bulk.config;
+package com.example.demo.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = {
-    "com.example.demo.bulk.repository",
-    "com.example.demo.analyzer.repository"
-})
+@EnableElasticsearchRepositories
 public class ElasticsearchConfig {
 
 }
